@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZDB API Wiki</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="material-symbols-outlined logo-icon">terminal</span>
+            <h2>ZDB Wiki</h2>
+        </div>
+
+        <nav class="nav-links">
+            <a href="#intro" class="nav-item active" data-target="intro">
+                <span class="material-symbols-outlined">api</span>
+                Introduction
+            </a>
+            <a href="#whats-new" class="nav-item" data-target="whats-new">
+                <span class="material-symbols-outlined">new_releases</span>
+                What's New (v6)
+            </a>
+            <a href="#endpoints" class="nav-item" data-target="endpoints">
+                <span class="material-symbols-outlined">route</span>
+                Core Endpoints
+            </a>
+            <a href="#integration" class="nav-item" data-target="integration">
+                <span class="material-symbols-outlined">integration_instructions</span>
+                Integration Guide
+            </a>
+            <a href="#rom-management" class="nav-item" data-target="rom-management">
+                <span class="material-symbols-outlined">folder_zip</span>
+                ROM Management
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                <span class="material-symbols-outlined icon-light" style="display:none;">light_mode</span>
+                <span class="toggle-text">Dark Mode</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-app-bar">
+            <button class="menu-btn" id="menuBtn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="search-bar">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" placeholder="Search API documentation...">
+            </div>
+            <div class="app-bar-actions">
+                <button class="icon-btn" aria-label="Notifications">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div class="avatar">Z</div>
+            </div>
+        </header>
+
+        <div class="content-scroll">
+            <div class="hero">
+                <div class="hero-chip">
+                    <span class="material-symbols-outlined chip-icon">bolt</span>
+                    Expressive & Fast
+                </div>
+                <h1 class="hero-title">ZDB API <br><span class="gradient-text">Documentation</span></h1>
+                <p class="hero-subtitle">The ultimate toolkit for ADB, Fastboot, and ROM management TUI environments.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary"
+                        onclick="document.getElementById('integration').scrollIntoView({behavior: 'smooth'})">Get
+                        Started</button>
+                    <button class="btn btn-secondary">
+                        <span class="material-symbols-outlined">code</span> View source
+                    </button>
+                </div>
+            </div>
+
+            <section id="intro" class="section-card active-section">
+                <div class="section-header">
+                    <div class="icon-wrapper bg-primary-container">
+                        <span class="material-symbols-outlined color-primary">hub</span>
+                    </div>
+                    <h2>Introduction</h2>
+                </div>
+                <p>ZDB provides a unified API and backend infrastructure for managing Android devices, custom ROMs, and
+                    kernel compilations directly from premium Python-based TUI applications.</p>
+
+                <div class="grid-cards">
+                    <div class="feature-card">
+                        <span class="material-symbols-outlined">terminal</span>
+                        <h3>ADB & Fastboot</h3>
+                        <p>Complete wrapper for device info, partition wiping, and flashing.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="material-symbols-outlined">speed</span>
+                        <h3>Performance</h3>
+                        <p>Asynchronous design ensures a buttery smooth TUI experience.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="whats-new" class="section-card">
+                <div class="section-header">
+                    <div class="icon-wrapper bg-tertiary-container">
+                        <span class="material-symbols-outlined color-tertiary">flare</span>
+                    </div>
+                    <h2>What's New in v6</h2>
+                </div>
+                <div class="update-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Update Check API</h3>
+                            <p>Experimental feature to check for ZDB updates via
+                                <code>nc4tt.github.io/api/zdb_v1</code>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Advanced Fastboot Partitioning</h3>
+                            <p>Added <code>fastboot create-logical-partition</code> and
+                                <code>delete-logical-partition</code> endpoints.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Complete Fastboot Coverage</h3>
+                            <p>Full support for OEM locking/unlocking, image booting, and extensive device information
+                                retrieval.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="endpoints" class="section-card">
+                <div class="section-header">
+                    <div class="icon-wrapper bg-secondary-container">
+                        <span class="material-symbols-outlined color-secondary">schema</span>
+                    </div>
+                    <h2>Core Endpoints</h2>
+                </div>
+                <p>ZDB commands are highly extensible and modular. Example usage of the Backend class:</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>python</span>
+                        <button class="copy-btn" aria-label="Copy code"><span
+                                class="material-symbols-outlined">content_copy</span></button>
+                    </div>
+                    <pre><code>from zdb.backend import ZDBBackend
+
+backend = ZDBBackend()
+
+# Fetch connected devices
+devices = await backend.get_adb_devices()
+
+# Flash a logical partition
+await backend.fastboot_flash("system", "~/zdb_rom/system.img")
+
+# Create a logical partition
+await backend.fastboot_create_logical_partition("my_part", 1024000)</code></pre>
+                </div>
+            </section>
+
+            <section id="integration" class="section-card">
+                <div class="section-header">
+                    <div class="icon-wrapper bg-primary-container">
+                        <span class="material-symbols-outlined color-primary">extension</span>
+                    </div>
+                    <h2>Easy to Integrate & Edit</h2>
+                </div>
+                <p>The routing system allows developers to bind TUI screens to backend functions cleanly.</p>
+                <div class="alert alert-info">
+                    <span class="material-symbols-outlined">info</span>
+                    <div>
+                        <strong>Pro Tip:</strong> All UI classes should inherit from the updated abstract
+                        <code>BaseScreen</code> allowing automatic registering of event handlers.
+                    </div>
+                </div>
+
+                <ol class="steps-list">
+                    <li>
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <h4>Initialize Project</h4>
+                            <p>Import ZDB into your Python TUI app managed by Poetry or pip.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <h4>Connect Backend</h4>
+                            <p>Instantiate the singleton <code>Backend()</code> class in your main entrypoint.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <h4>Bind Commands</h4>
+                            <p>Map keystrokes or UI buttons to
+                                <code>backend.execute_cmd("rom_extract", archive_path)</code>.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="rom-management" class="section-card">
+                <div class="section-header">
+                    <div class="icon-wrapper bg-secondary-container">
+                        <span class="material-symbols-outlined color-secondary">inventory_2</span>
+                    </div>
+                    <h2>ROM Management Features</h2>
+                </div>
+                <p>ZDB automatically handles deep file extraction and size optimizations for Custom ROM archives located
+                    in <code>~/zdb_rom</code>.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Format</th>
+                                <th>Backend Support</th>
+                                <th>Speed Optimization</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>.zip</code></td>
+                                <td><span class="badge badge-success">Native</span></td>
+                                <td>High</td>
+                            </tr>
+                            <tr>
+                                <td><code>.tar.gz / .tgz</code></td>
+                                <td><span class="badge badge-success">Native</span></td>
+                                <td>Medium</td>
+                            </tr>
+                            <tr>
+                                <td><code>.7z / .rar</code></td>
+                                <td><span class="badge badge-warning">Requires Extractor</span></td>
+                                <td>Low</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <p>Built with Material 3 Expressive UI 💖 by ZDB Platform Team</p>
+            </footer>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
