@@ -45,6 +45,10 @@
                 <span class="material-symbols-outlined">folder_zip</span>
                 ROM Management
             </a>
+            <a href="#live-demo" class="nav-item" data-target="live-demo">
+                <span class="material-symbols-outlined">network_ping</span>
+                Live Backend Demo
+            </a>
         </nav>
 
         <div class="sidebar-footer">
@@ -263,6 +267,35 @@ await backend.fastboot_create_logical_partition("my_part", 1024000)</code></pre>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </section>
+
+            <section id="live-demo" class="section-card">
+                <div class="section-header">
+                    <div class="icon-wrapper bg-tertiary-container">
+                        <span class="material-symbols-outlined color-tertiary">data_object</span>
+                    </div>
+                    <h2>Live Backend Demo</h2>
+                </div>
+                <p>Test the ZDB FastAPI backend locally by hitting the live endpoints. Ensure your backend is running on
+                    <code>localhost:8080</code>.</p>
+                <div class="demo-actions" style="display: flex; gap: 12px; margin-top: 16px;">
+                    <button class="btn btn-primary" id="fetchStatusBtn"
+                        style="display: flex; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">power</span> Check API Status
+                    </button>
+                    <button class="btn btn-secondary" id="fetchDevicesBtn"
+                        style="display: flex; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">devices</span> List Devices
+                    </button>
+                </div>
+                <div class="code-block" style="margin-top: 24px;">
+                    <div class="code-header">
+                        <span>JSON Response</span>
+                        <div class="demo-status" id="demoStatus" style="font-size: 13px; color: #8C8E91;">Waiting for
+                            request...</div>
+                    </div>
+                    <pre><code id="demoOutput">// Click a button above to fetch data from the backend.py script.</code></pre>
                 </div>
             </section>
 
