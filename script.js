@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initial staggered hero animations with anime.js
+    anime.set('.hero-title, .hero-subtitle, .hero-actions .btn', { opacity: 0, translateY: 20 });
+    anime({
+        targets: ['.hero-title', '.hero-subtitle', '.hero-actions .btn'],
+        translateY: [20, 0],
+        opacity: [0, 1],
+        duration: 1000,
+        delay: anime.stagger(150, { start: 300 }),
+        easing: 'easeOutExpo'
+    });
+
     // Theme Toggle Logic
     const themeToggle = document.getElementById('themeToggle');
     const toggleText = themeToggle.querySelector('.toggle-text');
@@ -44,7 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetEl = document.getElementById(targetId);
 
             if (targetEl) {
-                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const scrollContainer = document.querySelector('.content-scroll');
+                const targetPosition = targetEl.offsetTop;
+
+                anime({
+                    targets: scrollContainer,
+                    scrollTop: targetPosition - 100, // Offset for breathing room
+                    duration: 800,
+                    easing: 'easeInOutQuart'
+                });
             }
         });
     });
@@ -69,20 +88,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Staggered fade in animation for cards on scroll
+            // Staggered fade in animation for cards on scroll using anime.js
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                if (!entry.target.classList.contains('anime-animated')) {
+                    entry.target.classList.add('anime-animated');
+
+                    // Animate the section card itself
+                    anime({
+                        targets: entry.target,
+                        opacity: [0, 1],
+                        translateY: [30, 0],
+                        duration: 800,
+                        easing: 'easeOutCubic'
+                    });
+
+                    // Animate internal items (like feature cards, timeline items) in stagger
+                    const internalItems = entry.target.querySelectorAll('.feature-card, .timeline-item, .code-block, .steps-list li');
+                    if (internalItems.length > 0) {
+                        anime.set(internalItems, { opacity: 0, translateY: 20 });
+                        anime({
+                            targets: internalItems,
+                            opacity: [0, 1],
+                            translateY: [20, 0],
+                            duration: 600,
+                            delay: anime.stagger(100, { start: 200 }),
+                            easing: 'easeOutBack'
+                        });
+                    }
+                }
             }
         });
     }, observerOptions);
 
     sections.forEach(section => {
         observer.observe(section);
-        // Initially hide for animation if not in viewport
+        // Initially hide for anime.js
         section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.8s cubic-bezier(0.2, 0, 0, 1), transform 0.8s cubic-bezier(0.2, 0, 0, 1)';
     });
 
     // Mobile Menu Toggle
@@ -121,4 +162,53 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Live Backend Demo Logic
+    const fetchStatusBtn = document.getElementById('fetchStatusBtn');
+    const fetchDevicesBtn = document.getElementById('fetchDevicesBtn');
+    const demoStatus = document.getElementById('demoStatus');
+    const demoOutput = document.getElementById('demoOutput');
+
+    const updateDemoOutput = (text, isError = false) => {
+        demoOutput.textContent = text;
+        demoStatus.textContent = isError ? 'Error' : 'Success';
+        demoStatus.style.color = isError ? '#FF8A8A' : '#BBE5CE';
+
+        anime({
+            targets: demoOutput.parentElement,
+            backgroundColor: ['rgba(187, 229, 206, 0.2)', 'rgba(30, 31, 34, 1)'],
+            duration: 800,
+            easing: 'easeOutExpo'
+        });
+    };
+
+    if (fetchStatusBtn) {
+        fetchStatusBtn.addEventListener('click', async () => {
+            demoStatus.textContent = 'Fetching status...';
+            demoStatus.style.color = '#AECBFA';
+            try {
+                const response = await fetch('http://127.0.0.1:8080/api/zdb_v1/status');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                updateDemoOutput(JSON.stringify(data, null, 2));
+            } catch (error) {
+                updateDemoOutput(`Failed to connect to backend.\nEnsure backend.py is running on port 8080.\nError: ${error.message}`, true);
+            }
+        });
+    }
+
+    if (fetchDevicesBtn) {
+        fetchDevicesBtn.addEventListener('click', async () => {
+            demoStatus.textContent = 'Fetching devices...';
+            demoStatus.style.color = '#AECBFA';
+            try {
+                const response = await fetch('http://127.0.0.1:8080/api/zdb_v1/devices');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                updateDemoOutput(JSON.stringify(data, null, 2));
+            } catch (error) {
+                updateDemoOutput(`Failed to connect to backend.\nEnsure backend.py is running on port 8080.\nError: ${error.message}`, true);
+            }
+        });
+    }
 });
