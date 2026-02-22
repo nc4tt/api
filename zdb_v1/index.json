@@ -1,5 +1,5 @@
 {
-  "version": "6.0.0",
-  "changelog": "- Fixed minor bugs\n- Added new automated test suite\n- Performance improvements under the hood",
+  "version": "7.0.0",
+  "changelog": "- Fixed minor bugs",
   "url": "https://github.com/nc4tt/zdb/releases/latest"
 }
